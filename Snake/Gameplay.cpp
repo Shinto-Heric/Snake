@@ -6,6 +6,8 @@ namespace snake
 	{
 		_firstScreenLoaded = false;
 		_isGameActive = true;
+		up = down = left = right = false;
+		_snake = new Snake();
 	}
 	Gameplay::~Gameplay()
 	{
@@ -50,7 +52,36 @@ namespace snake
 		}
 		else
 		{
-
+			if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::W || event.key.code == sf::Keyboard::Up))
+			{
+				if (down == false)
+				{
+					up = true; right = left = false;
+				}				
+			}
+			if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::A || event.key.code == sf::Keyboard::Left))
+			{
+				if (right == false)
+				{
+					left = true; up = down = false;
+				}	
+			}
+			if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::S || event.key.code == sf::Keyboard::Down))
+			{
+				if (up == false)
+				{
+					down = true; right = left = false;
+				}
+			}
+			if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::D || event.key.code == sf::Keyboard::Right))
+			{
+				if (left == false)
+				{
+					right = true; up = down = false;
+				}
+				
+				
+			}
 		}
 		
 	}
@@ -62,4 +93,50 @@ namespace snake
 	{
 		return _firstScreenLoaded;
 	}
+	void Gameplay::SetMovement()
+	{
+		if (up)
+		{
+			//_snake->MoveUp();
+		}
+		else if (down)
+		{
+			//_snake->MoveDown();
+		}
+		else if (left)
+		{
+			//_snake->MoveLeft();
+		}
+		else if (right)
+		{
+			//_snake->MoveRight();
+		}
+	}
+	void Gameplay::CreateGameObjects()
+	{
+
+	}
+	void Gameplay::CreateSnake(long long length)
+	{
+		while (length)
+		{
+			_snake->CreateSnake(head);
+			length--;
+		}
+
+	}
+	std::map<Snake *, sf::RectangleShape> Gameplay::GetSnakeMap()
+	{
+		return _snakeTextures;
+	}
+
+	SnakeNode * Gameplay::GetSnakeHead()
+	{
+		SnakeNode * temp = _snake->GetSnakeHead();
+		return temp;
+	}
+
+	void Gameplay::SetHeadTex(sf::Texture tex) { head = tex; }
+	void Gameplay::SetBodyTex(sf::Texture tex) { body = tex; }
+	void Gameplay::SetFoodTex(sf::Texture tex) { food = tex; }
 }
