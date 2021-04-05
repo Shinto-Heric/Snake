@@ -97,20 +97,21 @@ namespace snake
 	{
 		if (up)
 		{
-			//_snake->MoveUp();
+			_snake->MoveUp();
 		}
-		else if (down)
+		if (down)
 		{
-			//_snake->MoveDown();
+			_snake->MoveDown();
 		}
-		else if (left)
+		if (left)
 		{
-			//_snake->MoveLeft();
+			_snake->MoveLeft();
 		}
-		else if (right)
+		if (right)
 		{
-			//_snake->MoveRight();
+			_snake->MoveRight();
 		}
+		_snake->CheckBoundary();
 	}
 	void Gameplay::CreateGameObjects()
 	{

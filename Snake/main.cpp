@@ -9,7 +9,7 @@
 //Glboal variables, functions, classes
 using namespace snake;
 
-#define DEFAULT_SNAKE_LENGTH 3
+#define DEFAULT_SNAKE_LENGTH 4
 
 
 int main()
@@ -43,11 +43,6 @@ int main()
 	gameplay->SetBodyTex(body);
 	gameplay->CreateSnake(DEFAULT_SNAKE_LENGTH);
 
-	sf::RectangleShape text;
-	text.setSize(sf::Vector2f(SNAKE_SQUARE_SIZE, SNAKE_SQUARE_SIZE));
-	text.setPosition(rand() % 600, rand() % 600);
-	text.setOrigin(SNAKE_SQUARE_SIZE / 2, SNAKE_SQUARE_SIZE / 2);
-	text.setTexture(&head);
 	//Game loop
 
 	SnakeNode* drawPtr = gameplay->GetSnakeHead();
@@ -65,10 +60,10 @@ int main()
 			}
 			
 			gameplay->HandleGameplayEvents(event);
-			gameplay->SetMovement();
 		}
 
-		
+		gameplay->SetMovement();
+
 
 		//RENDERING
 		window.clear();
@@ -90,8 +85,6 @@ int main()
 			}
 			window.draw(drawPtr->rect);
 		}
-		
-
 		window.display();
 	}
 	///////////

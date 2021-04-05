@@ -7,8 +7,7 @@
 #include "Snake.h"
 #include <map>
 //Constant variables
-#define SCREEN_WIDTH 600
-#define SCREEN_HEIGHT  600
+
 
 
 namespace snake
