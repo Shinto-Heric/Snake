@@ -33,7 +33,6 @@ namespace strikeit
 	public:
 		float *yVelocityPad;
 		bool gameplayProgress;
-
 		HandleGameplay();
 		~HandleGameplay();
 		void CreateGameObject();

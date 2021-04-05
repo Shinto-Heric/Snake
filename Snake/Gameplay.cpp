@@ -8,6 +8,10 @@ namespace snake
 		_isGameActive = true;
 		up = down = left = right = false;
 		_snake = new Snake();
+		_food = new Food();
+		_gameOver = false;
+		triggerOneTime = false;
+		totalScore = 0;
 	}
 	Gameplay::~Gameplay()
 	{
@@ -44,6 +48,9 @@ namespace snake
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space)
 			{
 				_firstScreenLoaded = false;
+				_gameOver = false;
+				triggerOneTime = true;
+				totalScore = 0;
 			}
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Q)
 			{
@@ -93,25 +100,33 @@ namespace snake
 	{
 		return _firstScreenLoaded;
 	}
+	bool Gameplay::GetGameOverStatus()
+	{
+		return _gameOver;
+	}
 	void Gameplay::SetMovement()
 	{
-		if (up)
+		if (_firstScreenLoaded == false)
 		{
-			_snake->MoveUp();
+			if (up)
+			{
+				_snake->MoveUp();
+			}
+			if (down)
+			{
+				_snake->MoveDown();
+			}
+			if (left)
+			{
+				_snake->MoveLeft();
+			}
+			if (right)
+			{
+				_snake->MoveRight();
+			}
+			_snake->CheckBoundary();
+			CheckCollison();
 		}
-		if (down)
-		{
-			_snake->MoveDown();
-		}
-		if (left)
-		{
-			_snake->MoveLeft();
-		}
-		if (right)
-		{
-			_snake->MoveRight();
-		}
-		_snake->CheckBoundary();
 	}
 	void Gameplay::CreateGameObjects()
 	{
@@ -121,7 +136,7 @@ namespace snake
 	{
 		while (length)
 		{
-			_snake->CreateSnake(head);
+			_snake->CreateSnake();
 			length--;
 		}
 
@@ -137,7 +152,36 @@ namespace snake
 		return temp;
 	}
 
-	void Gameplay::SetHeadTex(sf::Texture tex) { head = tex; }
-	void Gameplay::SetBodyTex(sf::Texture tex) { body = tex; }
-	void Gameplay::SetFoodTex(sf::Texture tex) { food = tex; }
+	void Gameplay::CreateFood()
+	{
+		snakeFood = _food->CreateFood();
+	}
+
+	sf::CircleShape Gameplay::GetFood()
+	{
+		return snakeFood;
+	}
+
+	void Gameplay::CheckCollison()
+	{
+		headPtr = _snake->GetSnakeHead();
+		if (headPtr->rect.getGlobalBounds().intersects(snakeFood.getGlobalBounds()) == true)
+		{
+			snakeFood.setPosition(rand() % 600, rand() % 600);
+			CreateSnake(1);
+			totalScore++;
+		}
+		while (headPtr->next != NULL)
+		{
+			headPtr = headPtr->next;
+			if (headPtr->rect.getGlobalBounds().intersects((_snake->GetSnakeHead())->rect.getGlobalBounds()) == true)
+			{
+				_gameOver = true;
+				_firstScreenLoaded = true; 
+				_snake->KillSnake();
+				up = down = left = right = false;
+				break;
+			}
+		}
+	}
 }

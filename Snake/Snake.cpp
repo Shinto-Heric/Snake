@@ -2,7 +2,6 @@
 
 #include "Snake.h"
 #include <stdlib.h>
-#include <iostream>
 using namespace sf;
 
 namespace snake
@@ -115,13 +114,12 @@ namespace snake
 		}
 		tempDataHolder->rect.setPosition(tempDataHolder->x, tempDataHolder->y);
 	}
-	void Snake::CreateSnake(sf::Texture snakeTexture)
+	void Snake::CreateSnake()
 	{
 		sf::RectangleShape head;
 		head.setSize(sf::Vector2f(SNAKE_SQUARE_SIZE, SNAKE_SQUARE_SIZE));
 		head.setPosition(300, 300);
 		head.setOrigin(SNAKE_SQUARE_SIZE / 2,SNAKE_SQUARE_SIZE / 2);
-		head.setTexture(&snakeTexture);
 		SnakeNode* new_node = new SnakeNode;
 		new_node->rect = head;
 		new_node->next = NULL;
@@ -152,6 +150,10 @@ namespace snake
 	SnakeNode * Snake::GetSnakeHead()
 	{
 		return _snakeHead;
+	}
+	void Snake::KillSnake()
+	{
+		_snakeHead = NULL;
 	}
 	void Snake::CheckBoundary()
 	{

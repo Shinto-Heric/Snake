@@ -9,7 +9,7 @@
 //Glboal variables, functions, classes
 using namespace snake;
 
-#define DEFAULT_SNAKE_LENGTH 4
+#define DEFAULT_SNAKE_LENGTH 50
 
 
 int main()
@@ -31,17 +31,9 @@ int main()
 
 	sf::Event event;
 	//snake texture
-	sf::Texture head;
-	if (!head.loadFromFile("Data/head.png")) {
-		return -1;
-	}
-	gameplay->SetHeadTex(head);
-	sf::Texture body;
-	if (!head.loadFromFile("Data/body.png")) {
-		return -1;
-	}
-	gameplay->SetBodyTex(body);
+	
 	gameplay->CreateSnake(DEFAULT_SNAKE_LENGTH);
+	gameplay->CreateFood();
 
 	//Game loop
 
@@ -70,6 +62,16 @@ int main()
 		
 		//Drawing the shapes
 
+		if (gameplay->GetGameOverStatus() && gameplay->triggerOneTime)
+		{
+			gameplay->CreateSnake(DEFAULT_SNAKE_LENGTH);
+			gameplay->CreateFood();
+			gameplay->triggerOneTime = false;
+			
+					std::stringstream text;
+					text << "Your Score \n"<< gameplay->totalScore <<"\n"; //Create the text
+					WelcomeText.setString(text.str() + "Press SPACE to START\nPress Q to QUIT"); //Set the score text
+		}
 		if (gameplay->FirstScreenStatus())
 		{
 			window.draw(WelcomeText);
@@ -84,6 +86,7 @@ int main()
 				drawPtr = drawPtr->next;
 			}
 			window.draw(drawPtr->rect);
+			window.draw(gameplay->GetFood());
 		}
 		window.display();
 	}

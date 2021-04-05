@@ -27,10 +27,11 @@ namespace snake
 		void MoveDown();
 		void MoveLeft();
 		void MoveRight();
-		void CreateSnake(sf::Texture snakeTexture);
+		void CreateSnake();
 		void CreateSnakeBody();
 		SnakeNode * _snakeHead, *_snakeTail, *_prevPtr;
 		SnakeNode* GetSnakeHead();
+		void KillSnake();
 		void CheckBoundary();
 
 	private:
