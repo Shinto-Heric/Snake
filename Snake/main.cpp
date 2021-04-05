@@ -9,7 +9,7 @@
 //Glboal variables, functions, classes
 using namespace snake;
 
-#define DEFAULT_SNAKE_LENGTH 50
+#define DEFAULT_SNAKE_LENGTH 3
 
 
 int main()

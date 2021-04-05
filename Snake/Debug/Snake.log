@@ -1,4 +1,0 @@
-﻿  Gameplay.cpp
-e:\vb\git\snake\snake\gameplay.cpp(170): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Snake.vcxproj -> E:\VB\Git\Snake\Debug\Snake.exe
-  Snake.vcxproj -> E:\VB\Git\Snake\Debug\Snake.pdb (Full PDB)

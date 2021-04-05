@@ -6,7 +6,6 @@
 #define SNAKE_H_
 
 
-#define SNAKE_SPEED 5
 #define SNAKE_SQUARE_SIZE 10
 #define SCREEN_WIDTH 600
 #define SCREEN_HEIGHT  600
